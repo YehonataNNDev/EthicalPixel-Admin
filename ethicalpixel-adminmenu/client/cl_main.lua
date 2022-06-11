@@ -31,16 +31,18 @@ RegisterKeyMapping('+openmenu', 'Open Admin Menu', 'keyboard', 'F5')
 
 
 RegisterCommand("+openmenu", function()
-    local ServerName = 'None!'
-    CoreName.Functions.TriggerCallback('ethicalpixel-admin:GetServerName', function(result)
-        ServerName = result
+    CoreName.Functions.TriggerCallback('ethicalpixel-admin:CheckPerms', function(result)
+      if(result == true) then
         SendNUIMessage({
             type = "open",
-            license = Config['General']["License"],
-            servername = ServerName
+    
         })
+        SetNuiFocus(true, true)
+    else
+        return print('[ethicalpixel-admin] No perms.')
+    end
     end)
-    SetNuiFocus(true, true)
+ 
 end)
 
 function GetDrawablesTotal()
@@ -458,10 +460,10 @@ end)
 
 
 RegisterNUICallback("getOnlinePlayers" , function(data, cb)
-    --Citizen.Wait(1000)
     CoreName.Functions.TriggerCallback('ethicalpixel-admin:GetOnlinePlayers', function(result)
         wa = result
         cb(wa)
+        print(wa)
     end)
     
 end)
@@ -823,4 +825,3 @@ end)
 RegisterNUICallback('DevmodeStatus' , function(data , cb)
     cb(devmode)
 end)
-

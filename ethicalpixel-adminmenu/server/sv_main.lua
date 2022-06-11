@@ -294,9 +294,16 @@ CoreName.Functions.CreateCallback('ethicalpixel-admin:GetOnlinePlayers', functio
   if CoreName.Functions.HasPermission(src, 'admin') then
     local players = {}
     for k,v in pairs(GetPlayers()) do
-        table.insert(players , {DisplayName =  GetPlayerName(v) , PlayerID = v , Steam = GetPlayerIdentifier(v, steam)})
+      table.insert(players , {DisplayName =  GetPlayerName(v) , PlayerID = v , Steam = GetPlayerIdentifier(v, steam)})
     end
     cb(players)
+  end
+end)
+
+CoreName.Functions.CreateCallback('ethicalpixel-admin:CheckPerms', function(source, cb)
+  local src = source                                            
+  if CoreName.Functions.HasPermission(src, 'admin') then
+    cb(true)
   end
 end)
 
