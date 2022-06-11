@@ -10,9 +10,9 @@ Config['CoreSettings'] = {
     ["QBCORE"] = {
         ["Version"] = "old", -- new = using export | old = using events
         --["Export"] = exports['qb-core']:GetCoreObject(), -- uncomment this if using new qbcore version
-        ["Trigger"] = "XZCore:GetObject",
-        ["HasItem"] = "XZCore:HasItem", -- Imporant [ Your trigger for checking has item, default is CORENAME:HasItem ] 
-        ["ServerNotificationEvent"] = "XZCore:Notify", 
+        ["Trigger"] = "QBCore:GetObject",
+        ["HasItem"] = "QBCore:HasItem", -- Imporant [ Your trigger for checking has item, default is CORENAME:HasItem ] 
+        ["ServerNotificationEvent"] = "QBCore:Notify", 
 
     }, 
 }
