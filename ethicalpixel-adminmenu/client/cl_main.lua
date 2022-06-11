@@ -407,11 +407,8 @@ end)
 
 RegisterNetEvent('ethicalpixel-adminmenu:client:GiveCash')
 AddEventHandler('ethicalpixel-adminmenu:client:GiveCash', function(reciever, amount)
-    if tonumber(reciever) == GetPlayerServerId(t) then
-        TriggerServerEvent("ethicalpixel-adminmenu:server:GiveCash", reciever, amount)
-    else
-        TriggerEvent("DoLongHudText", "This player is not online", 2)
-    end
+    TriggerServerEvent("ethicalpixel-adminmenu:server:GiveCash", reciever, amount)
+    
 end)
 
 RegisterNetEvent('ethicalpixel-adminmenu:client:KickPlayer')
