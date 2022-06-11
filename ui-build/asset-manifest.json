@@ -1,0 +1,15 @@
+{
+  "main.css": "./main.chunk.css",
+  "main.js": "./main.chunk.js",
+  "main.js.map": "./main.chunk.js.map",
+  "runtime~main.js": "./bundle.js",
+  "runtime~main.js.map": "./bundle.js.map",
+  "2.chunk.css": "./2.chunk.css",
+  "2.chunk.js": "./2.chunk.js",
+  "2.chunk.js.map": "./2.chunk.js.map",
+  "2.chunk.css.map": "./2.chunk.css.map",
+  "style.css": "./Cloudward.ttf",
+  "font-awesome.min.css": "./fontawesome-webfont.woff2",
+  "index.html": "./index.html",
+  "main.chunk.css.map": "./main.chunk.css.map"
+}
