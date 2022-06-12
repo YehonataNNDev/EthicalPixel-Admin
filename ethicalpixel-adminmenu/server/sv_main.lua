@@ -111,7 +111,7 @@ end
 RegisterServerEvent('ethicalpixel-adminmenu:server:SpawnItem')
 AddEventHandler('ethicalpixel-adminmenu:server:SpawnItem', function(ItemName, ItemAmount)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     local steamid  = false
     local license  = false
     local discord  = false
@@ -144,7 +144,7 @@ end)
 RegisterServerEvent('ethicalpixel-adminmenu:server:Csay')
 AddEventHandler('ethicalpixel-adminmenu:server:Csay', function(msg)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     TriggerClientEvent("chatMessage", -1, "Admin: ", {255, 0, 0}, msg)
     local Execute = SQL("INSERT INTO ethicalpixel_admin_log(identifier , log , name , date) VALUES(@identifier , @log , @name , @date)",{["@identifier"]=license,['@log']='cSaid: '..msg,["@name"]=GetPlayerName(source) , ['@date'] = os.time()})
   end
@@ -154,7 +154,7 @@ end)
 RegisterServerEvent('ethicalpixel-adminmenu:server:GetCoords')
 AddEventHandler('ethicalpixel-adminmenu:server:GetCoords', function(target, toggle)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     local pSrc = tonumber(id)
     local tSrc = tonumber(target)
     local ped = GetPlayerPed(tSrc)
@@ -168,7 +168,7 @@ end)
 RegisterServerEvent('ethicalpixel-adminmenu:server:bringPlayer')
 AddEventHandler('ethicalpixel-adminmenu:server:bringPlayer', function(target , pos)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     TriggerClientEvent('ethicalpixel-adminmenu:client:bringPlayer', tonumber(target),  pos)
     local Execute = SQL("INSERT INTO ethicalpixel_admin_log(identifier , log , name , date) VALUES(@identifier , @log , @name , @date)",{["@identifier"]=license,['@log']='Bringed Player | ID: '..target..' | Display Name: '..GetPlayerName(target),["@name"]=GetPlayerName(source) , ['@date'] = os.time()})
   end
@@ -177,8 +177,8 @@ end)
 
 RegisterServerEvent('ethicalpixel-adminmenu:server:GiveCash')
 AddEventHandler('ethicalpixel-adminmenu:server:GiveCash', function(reciever, amount)
-  local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  local src = source          
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     local Player = CoreName.Functions.GetPlayer(tonumber(reciever))
     Player.Functions.AddMoney('cash', amount)
     TriggerClientEvent(Config['CoreSettings']["QBCORE"]["ServerNotificationEvent"], source, "You gave "..reciever.." "..amount.." $", 'success', 5000)
@@ -192,7 +192,7 @@ end)
 RegisterNetEvent("ethicalpixel-adminmenu:server:DropPlayer")
 AddEventHandler("ethicalpixel-adminmenu:server:DropPlayer", function(target, pReason)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     DropPlayer(target, "You were kicked | Reason: " ..pReason)
   end
 end)
@@ -200,7 +200,7 @@ end)
 RegisterNetEvent("ethicalpixel-adminmenu:server:setFav")
 AddEventHandler("ethicalpixel-adminmenu:server:setFav", function(data)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     local Player = CoreName.Functions.GetPlayer(source)
     local cid = Player.PlayerData.citizenid
     local result =  SQL("UPDATE ethicalpixel_admin SET favorite = @fav WHERE cid = @cid" , { ["@fav"] = json.encode(data),["@cid"] = cid})
@@ -267,7 +267,7 @@ end)
 ---------------------------------------------------------------------------------------------
 CoreName.Functions.CreateCallback('ethicalpixel-admin:GetBannedPlayers', function(source, cb)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     local result =  SQL("SELECT * FROM ethicalpixel_admin_banned" , {})
     cb(result)
   end
@@ -275,7 +275,7 @@ end)
 ---------------------------------------------------------------------------------------------
 CoreName.Functions.CreateCallback('ethicalpixel-admin:GetLogs', function(source, cb)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     local result =  SQL("SELECT * FROM ethicalpixel_admin_log" , {})
     cb(result)
   end
@@ -284,14 +284,14 @@ end)
 ---------------------------------------------------------------------------------------------
 CoreName.Functions.CreateCallback('ethicalpixel-admin:GetServerName', function(source, cb)
   local src = source     
-  if CoreName.Functions.HasPermission(source, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     cb(GetConvar("sv_hostname"))
   end
 end)
 ----------------------------------------------------------------------------------------
 CoreName.Functions.CreateCallback('ethicalpixel-admin:GetOnlinePlayers', function(source, cb)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     local players = {}
     for k,v in pairs(GetPlayers()) do
       table.insert(players , {DisplayName =  GetPlayerName(v) , PlayerID = v , Steam = GetPlayerIdentifier(v, steam)})
@@ -302,8 +302,10 @@ end)
 
 CoreName.Functions.CreateCallback('ethicalpixel-admin:CheckPerms', function(source, cb)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     cb(true)
+  else
+    cb(false)
   end
 end)
 
@@ -312,7 +314,7 @@ end)
 RegisterNetEvent("ethicalpixel-admin:BanPlayer")
 AddEventHandler("ethicalpixel-admin:BanPlayer", function(target , reason , length)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     if not target then return end
     local TargetPlayer 
     local Admin = CoreName.Functions.GetPlayer(source)
@@ -370,7 +372,7 @@ end)
 RegisterServerEvent('ethicalpixel-admin:GetPlayersForBlips')       
 AddEventHandler('ethicalpixel-admin:GetPlayersForBlips', function()
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     local players = {}
     for k, v in pairs(GetPlayers()) do
       local targetped = GetPlayerPed(v)
@@ -387,7 +389,7 @@ end)
 RegisterServerEvent('ethicalpixel-admin:server:tSay')       
 AddEventHandler('ethicalpixel-admin:server:tSay', function(message)
   local src = source                                            
-  if CoreName.Functions.HasPermission(src, 'admin') then
+  if CoreName.Functions.HasPermission(src, 'admin') or IsPlayerAceAllowed(src, 'command') then
     TriggerClientEvent('chatMessage', -1, 'Announcement', 4, message)
     addLog('Announced:  '..message)
   end
