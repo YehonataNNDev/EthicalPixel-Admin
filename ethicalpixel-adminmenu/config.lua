@@ -52,5 +52,5 @@ Revive = function(target)
     -- TriggerEvent("Hospital:HealInjuries",true) 
     -- TriggerServerEvent("ems:healplayer", v)
     -- TriggerEvent("heal")
-    TriggerServerEvent("hospital:server:RevivePlayer" , target)
+    TriggerServerEvent("hospital:server:RevivePlayer" , tonumber(target))
 end
