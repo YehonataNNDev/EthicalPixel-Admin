@@ -114,7 +114,7 @@ AddEventHandler('ethicalpixel-adminmenu:client:ChangeModel', function(model)
 end)
 
 RegisterNetEvent('ethicalpixel-adminmenu:client:OpenClothingMenu')
-AddEventHandler('ethicalpixel-adminmenu:client:OpenClothingMenu', function()
+AddEventHandler('ethicalpixel-adminmenu:client:OpenClothingMenu', function(pid)
     OpenClothing()
 end)
 
@@ -156,8 +156,7 @@ end
 
 RegisterNetEvent('ethicalpixel-adminmenu:client:RevivePlayer')
 AddEventHandler('ethicalpixel-adminmenu:client:RevivePlayer', function(pid)
-   TriggerServerEvent("hospital:server:RevivePlayer" , pid)
-    
+    Revive(pid)
 end)
 
 RegisterNetEvent('ethicalpixel-adminmenu:client:SpawnCar')

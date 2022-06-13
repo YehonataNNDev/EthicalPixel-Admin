@@ -28,11 +28,11 @@ EnterBennys = function()
 end
 
 WeatherEvent = function(weather)
-    TriggerEvent("qb-weathersync:server:setWeather", weather)
+    TriggerServerEvent("qb-weathersync:server:setWeather", weather)
 end
 
 TimeEvent = function(time)
-    return print('Currently not working')
+    return TriggerServerEvent('qb-weathersync:server:setTime' , time , 0)
 end
 
 OpenClothing = function()
@@ -47,10 +47,10 @@ AddVehicleKeys = function(vehicle, plate)
     TriggerEvent("keys:addNew",vehicle,plate)
 end
 
-Revive = function()
+Revive = function(target)
     -- TriggerServerEvent("reviveGranted", v)
     -- TriggerEvent("Hospital:HealInjuries",true) 
     -- TriggerServerEvent("ems:healplayer", v)
     -- TriggerEvent("heal")
-    TriggerEvent("hospital:client:Revive")
+    TriggerServerEvent("hospital:server:RevivePlayer" , target)
 end
